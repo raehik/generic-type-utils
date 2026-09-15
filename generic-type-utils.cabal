@@ -1,0 +1,75 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.38.2.
+--
+-- see: https://github.com/sol/hpack
+
+name:           generic-type-utils
+version:        0.1.0
+synopsis:       TODO
+description:    TODO TODO
+category:       Generic
+homepage:       https://github.com/raehik/generic-type-utils#readme
+bug-reports:    https://github.com/raehik/generic-type-utils/issues
+author:         Ben Orchard
+maintainer:     Ben Orchard <thefirstmuffinman@gmail.com>
+license:        MIT
+license-file:   LICENSE
+build-type:     Simple
+tested-with:
+    GHC==9.14
+  , GHC==9.12
+  , GHC==9.10
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/raehik/generic-type-utils
+
+library
+  exposed-modules:
+      GHC.Generics.Utils.Count
+      GHC.Generics.Utils.Example
+      GHC.Generics.Utils.Index
+      GHC.Generics.Utils.Path
+      Test
+  other-modules:
+      Paths_generic_type_utils
+  hs-source-dirs:
+      src
+  default-extensions:
+      NoStarIsType
+      DerivingVia
+      DeriveAnyClass
+      DefaultSignatures
+      TypeFamilies
+      MagicHash
+  ghc-options: -fhide-source-paths -Wall -Winvalid-haddock
+  build-depends:
+      base >=4.20 && <5
+    , ghc-typenats-bits >=0.1.0 && <0.2
+  default-language: GHC2024
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Main.hs
+  other-modules:
+      Paths_generic_type_utils
+  hs-source-dirs:
+      test
+  default-extensions:
+      NoStarIsType
+      DerivingVia
+      DeriveAnyClass
+      DefaultSignatures
+      TypeFamilies
+      MagicHash
+  ghc-options: -fhide-source-paths -Wall -Winvalid-haddock
+  build-depends:
+      base >=4.20 && <5
+    , generic-type-utils
+    , ghc-typenats-bits >=0.1.0 && <0.2
+    , type-spec
+  default-language: GHC2024

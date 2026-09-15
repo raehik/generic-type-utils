@@ -1,0 +1,68 @@
+name: generic-type-utils
+version: 0.1.0
+synopsis: TODO
+description: >
+  TODO
+  TODO
+extra-source-files:
+- README.md
+- CHANGELOG.md
+category: Generic
+license: MIT
+license-file: LICENSE
+tested-with:
+- GHC==9.14
+- GHC==9.12
+- GHC==9.10
+
+github: raehik/generic-type-utils
+maintainer: Ben Orchard <thefirstmuffinman@gmail.com>
+author: Ben Orchard
+
+# raehik's extensions (GHC 9.14; last updated: 2026-09-14)
+language: GHC2024
+default-extensions:
+# syntax that should be default
+- NoStarIsType
+
+## deriving-related
+- DerivingVia # implies DerivingStrategies
+- DeriveAnyClass
+
+# other features
+- DefaultSignatures
+- TypeFamilies
+
+# other syntax
+- MagicHash
+
+# useful extensions to know about, but which should be specified on-demand
+#
+# UndecidableInstances:
+#   required for type class wizardry
+#   generally only enable if you were expecting to & compilation fails without
+# AllowAmbiguousTypes:
+#   often goes hand in hand with TypeApplications-heavy code
+#   enabling on demand brings attention to the sort of functions to expect
+# StarIsType:
+#   may need to enable if you're working with old code that uses `Int :: *`
+
+ghc-options:
+- -fhide-source-paths # hides module filepaths when compiling (bit neater)
+- -Wall
+- -Winvalid-haddock # warn on invalid Haddock (e.g. "can't do that here")
+
+dependencies:
+- base >= 4.20 && < 5
+- ghc-typenats-bits ^>= 0.1.0
+
+library:
+  source-dirs: src
+
+tests:
+  spec:
+    source-dirs: test
+    main: Main.hs
+    dependencies:
+    - generic-type-utils
+    - type-spec # ^>= 0.4.0.0
