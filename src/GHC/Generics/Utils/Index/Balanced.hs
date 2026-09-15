@@ -76,3 +76,16 @@ type family IdxTurnsCstr' idx size turns rep where
     -- right turn: increase index by size of left tree, continue right
     IdxTurnsCstr' (idx + SizeL size) (SizeR size) turns r
   IdxTurnsCstr' idx size '[] rep = '(rep, idx)
+
+-- taking size because sometimes we also want it in the calling generics
+type IdxTurnsField size turns rep = IdxTurnsField' 0 size turns rep
+
+type IdxTurnsField' :: Natural -> Natural -> [Turn] -> (k -> Type) -> (k -> Type, Natural)
+type family IdxTurnsField' idx size turns rep where
+  IdxTurnsField' idx size (TurnLeft  : turns) (l :*: r) =
+    -- left  turn: same index, continue left
+    IdxTurnsField'  idx               (SizeL size) turns l
+  IdxTurnsField' idx size (TurnRight : turns) (l :*: r) =
+    -- right turn: increase index by size of left tree, continue right
+    IdxTurnsField' (idx + SizeL size) (SizeR size) turns r
+  IdxTurnsField' idx size '[] rep = '(rep, idx)
