@@ -32,7 +32,8 @@ library
   exposed-modules:
       GHC.Generics.Utils.Count
       GHC.Generics.Utils.Example
-      GHC.Generics.Utils.Index
+      GHC.Generics.Utils.Index.Balanced
+      GHC.Generics.Utils.Index.Tree
       GHC.Generics.Utils.Path
       Test
   other-modules:

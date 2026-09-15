@@ -4,7 +4,8 @@
 module GHC.Generics.Utils.Example where
 
 import GHC.Generics.Utils.Path
-import GHC.Generics.Utils.Index
+import GHC.Generics.Utils.Index.Balanced
+import GHC.Generics.Utils.Count
 import Data.Proxy
 import GHC.TypeLits ( type Symbol )
 import GHC.TypeNats
@@ -43,6 +44,21 @@ instance
   ) => GCstrNameIdx' '[] idxState rep where
     gCstrNameIdx' = natVal (Proxy @(Idx idxState))
 
+genericCstrNameIdx2
+  :: forall (name :: Symbol)
+  -> forall a
+  -> (Generic a, GCstrNameIdx2 name (Rep a))
+  => Natural
+genericCstrNameIdx2 name a = gCstrNameIdx2 @name @(Rep a)
+
+class GCstrNameIdx2 (name :: Symbol) rep where gCstrNameIdx2 :: Natural
+instance
+  ( SearchCstr name rep ~ Right turns
+  , IdxTurnsCstr (CountCstrs rep) turns rep ~ '(repCstr, idxx)
+  , KnownNat idxx
+  ) => GCstrNameIdx2 name (D1 md rep) where
+    gCstrNameIdx2 = natVal (Proxy @idxx)
+
 ---
 
 genericFieldNameIdx
@@ -74,3 +90,12 @@ instance
   ( KnownNat (Idx idxState)
   ) => GFieldNameIdx' '[] idxState rep where
     gFieldNameIdx' = natVal (Proxy @(Idx idxState))
+
+{- TODO
+In the above cases, we don't even need all these instances.
+If you're not doing term-level work, you can just use type families.
+My bitfield generics might will do this, right?
+The generics just locate the bit.
+So, I should provide an example for that.
+(And this example should do some term-level work.)
+-}
