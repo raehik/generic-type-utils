@@ -1,9 +1,9 @@
 name: generic-type-utils
 version: 0.1.0
-synopsis: TODO
+synopsis: Assorted type-level utilities for working with GHC generics
 description: >
-  TODO
-  TODO
+  raehik's library for assorted utilities (likely type-level)
+  on GHC's generic `Rep`s.
 extra-source-files:
 - README.md
 - CHANGELOG.md
