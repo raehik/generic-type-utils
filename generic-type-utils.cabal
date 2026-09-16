@@ -30,6 +30,7 @@ source-repository head
 
 library
   exposed-modules:
+      Data.Type.List
       GHC.Generics.Utils.Count
       GHC.Generics.Utils.Example
       GHC.Generics.Utils.Index.Balanced
